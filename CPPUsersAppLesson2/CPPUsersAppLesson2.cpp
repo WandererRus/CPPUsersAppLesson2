@@ -68,8 +68,37 @@ char* mystrchr(char* str, char s)
     }
     return result;
 }
-char* mystrstr(char* str1, char* str2); // функция осуществляет поиск подстроки str2 в строке str1.
+// функция осуществляет поиск подстроки str2 в строке str1.
 //Функция возвращает указатель на первое вхождение подстроки str2 в строку str1, в противном случае 0.*/
+char* mystrstr(char* str1, char* str2)
+{
+    char* result = 0;
+    int stringsize = mystrlen(str1);
+    int substringsize = mystrlen(str2);
+    for (int i = 0; i < stringsize - substringsize; i++)
+    {
+        if (result == 0)
+        { 
+            for (int k = 0; k < substringsize; k++)
+            {
+                if (*(str1 + i + k) != *(str2 + k))
+                {
+                    break;
+                }
+                else if (k == substringsize-1)
+                {
+                    result = (str1 + i);
+                }
+            }
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    return result;
+}
 
 int main()
 {
@@ -92,9 +121,20 @@ int main()
     char* findChar = nullptr;
     findChar = mystrchr(destination, 'p');
     std::cout << findChar << "\n";
-    return 0;
 
     //5
+    char* sub = new char[4]{ 'f','o','r','\0'};
+    char* findsub = nullptr;
+    findsub = mystrstr(destination, sub);
+    if (findsub != nullptr)
+    {
+        std::cout << findsub << "\n";
+    }
+    else
+    {
+        std::cout << "No substring this";
+    }
+    return 0;
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
